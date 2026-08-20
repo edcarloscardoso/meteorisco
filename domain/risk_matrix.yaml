@@ -1,0 +1,277 @@
+# MeteoRisco — Risk Matrix (v1.0 Produção de Domínio)
+# ─────────────────────────────────────────────────────────────────────────────
+# Mapeamento determinístico de regras de underwriting e elegibilidade de risco.
+#
+# Fontes de Thresholds: Data Feasibility Study (Open-Meteo API)
+# Variáveis utilizadas:
+#   - precipitation_mm_h: mm/h de chuva previstos
+#   - wind_gusts_kmh: rajadas de vento a 10m em km/h
+#   - weather_code_min: código WMO de condição meteorológica (95=tempestade, 96=granizo leve, 99=granizo forte)
+#   - cape_jkg: Energia Potencial Convectiva Disponível (J/kg)
+#   - lifted_index_max: Índice de instabilidade atmosférica (quanto menor/mais negativo, mais instável)
+# ─────────────────────────────────────────────────────────────────────────────
+
+version: "1.0-final"
+last_updated: "2026-08-20"
+updated_by: "Especialista Seguros / Engenharia MeteoRisco"
+
+rules:
+  # ─── CHUVA INTENSA × AMARELO ────────────────────────────────────────────────
+  - id: rain_heavy_yellow_residential
+    event: rain_heavy
+    severity: yellow
+    line_of_business: residential
+    thresholds:
+      precipitation_mm_h: 5.0
+    action: alert
+    priority: low
+    exposure_conditions:
+      - imovel_terreo
+      - area_sujeita_alagamento
+    guidance_keys:
+      - verificar_calhas
+      - recolher_objetos_externos
+    do_not_alert_if:
+      - imovel_alto_sem_area_risco
+    rationale: >
+      Precipitação acumulada prevista de 5 mm/h em área residencial.
+      Risco baixo de alagamento pontual em imóveis térreos. Orientação preventiva informativa.
+
+  - id: rain_heavy_yellow_auto
+    event: rain_heavy
+    severity: yellow
+    line_of_business: auto
+    thresholds:
+      precipitation_mm_h: 5.0
+    action: alert
+    priority: low
+    exposure_conditions:
+      - veiculo_na_rua
+    guidance_keys:
+      - verificar_vias_alagadas
+      - evitar_areas_de_risco
+    do_not_alert_if:
+      - veiculo_em_garagem_coberta
+    rationale: >
+      Chuva leve a moderada (5 mm/h). Veículos na rua devem ficar atentos a poças e baixa visibilidade.
+
+  # ─── CHUVA INTENSA × LARANJA ─────────────────────────────────────────────────
+  - id: rain_heavy_orange_residential
+    event: rain_heavy
+    severity: orange
+    line_of_business: residential
+    thresholds:
+      precipitation_mm_h: 15.0
+    action: alert
+    priority: medium
+    exposure_conditions:
+      - imovel_terreo
+      - area_sujeita_alagamento
+      - regiao_costeira
+    guidance_keys:
+      - recolher_bens_de_valor
+      - verificar_sistema_de_drenagem
+      - contato_previo_com_prestadores
+    do_not_alert_if: []
+    rationale: >
+      Precipitação forte de 15 mm/h prevista. Alto potencial de enxurrada e alagamento em áreas vulneráveis.
+
+  - id: rain_heavy_orange_auto
+    event: rain_heavy
+    severity: orange
+    line_of_business: auto
+    thresholds:
+      precipitation_mm_h: 15.0
+    action: alert
+    priority: medium
+    exposure_conditions:
+      - veiculo_na_rua
+    guidance_keys:
+      - buscar_abrigo_coberto
+      - evitar_cruzar_vias_alagadas
+    do_not_alert_if:
+      - veiculo_em_garagem_coberta
+    rationale: >
+      Chuva forte de 15 mm/h com risco de alagamento nas vias urbanas. Recomendado abrigar veículos na rua.
+
+  # ─── CHUVA INTENSA × VERMELHO ────────────────────────────────────────────────
+  - id: rain_heavy_red_residential
+    event: rain_heavy
+    severity: red
+    line_of_business: residential
+    thresholds:
+      precipitation_mm_h: 30.0
+    action: alert
+    priority: high
+    exposure_conditions:
+      - imovel_terreo
+      - area_sujeita_alagamento
+    guidance_keys:
+      - acao_imediata_recolher_bens
+      - identificar_rota_de_evacuacao
+      - contato_emergencial
+    do_not_alert_if: []
+    rationale: >
+      Chuva torrencial crítica ≥ 30 mm/h. Risco severo de inundação. Orientação de emergência.
+
+  - id: rain_heavy_red_auto
+    event: rain_heavy
+    severity: red
+    line_of_business: auto
+    thresholds:
+      precipitation_mm_h: 30.0
+    action: alert
+    priority: high
+    exposure_conditions:
+      - veiculo_na_rua
+    guidance_keys:
+      - mover_veiculo_imediatamente
+      - nao_tentar_cruzar_enchente
+    do_not_alert_if:
+      - veiculo_em_garagem_coberta
+    rationale: >
+      Chuva torrencial crítica (≥ 30 mm/h). Risco iminente de perda total por submersão para veículos na rua.
+
+  # ─── GRANIZO × (WMO 96/99 ou CAPE elevado) ──────────────────────────────────
+  - id: hail_orange_auto
+    event: hail
+    severity: orange
+    line_of_business: auto
+    thresholds:
+      weather_code_min: 96
+      cape_jkg: 1200
+      lifted_index_max: -3.0
+      wind_gusts_kmh: 50.0
+    action: alert
+    priority: high
+    exposure_conditions:
+      - veiculo_na_rua
+    guidance_keys:
+      - buscar_abrigo_coberto_imediato
+      - nao_estacionar_sob_arvores
+    do_not_alert_if:
+      - veiculo_em_garagem_coberta
+    rationale: >
+      Condições termodinâmicas favoráveis à formação de granizo (WMO 96, CAPE ≥ 1200 J/kg). Veículos na rua devem ser abrigados.
+
+  - id: hail_red_auto
+    event: hail
+    severity: red
+    line_of_business: auto
+    thresholds:
+      weather_code_min: 99
+      cape_jkg: 2000
+      lifted_index_max: -5.0
+    action: alert
+    priority: high
+    exposure_conditions:
+      - veiculo_na_rua
+    guidance_keys:
+      - acao_imediata_abrigo_coberto
+    do_not_alert_if:
+      - veiculo_em_garagem_coberta
+    rationale: >
+      Tempestade severa com alta probabilidade de granizo forte prevista pelo modelo (WMO 99, CAPE ≥ 2000 J/kg). Risco elevado de danos à lataria e vidros.
+
+  - id: hail_orange_residential
+    event: hail
+    severity: orange
+    line_of_business: residential
+    thresholds:
+      weather_code_min: 96
+      cape_jkg: 1200
+      lifted_index_max: -3.0
+    action: alert
+    priority: medium
+    exposure_conditions:
+      - casa_com_telhado
+      - objetos_externos
+    guidance_keys:
+      - recolher_objetos_externos
+      - verificar_telhado_apos_evento
+    do_not_alert_if: []
+    rationale: >
+      Potencial de granizo previsto pelo modelo numérico em área residencial. Recomendação de proteção para estruturas frágeis e telhados.
+
+  # ─── VENTO FORTE ──────────────────────────────────────────────────────────────
+  - id: wind_strong_orange_residential
+    event: wind_strong
+    severity: orange
+    line_of_business: residential
+    thresholds:
+      wind_gusts_kmh: 50.0
+    action: alert
+    priority: medium
+    exposure_conditions:
+      - casa_com_telhado
+      - objetos_externos
+      - regiao_costeira
+    guidance_keys:
+      - recolher_objetos_do_jardim
+      - verificar_fixacao_de_estruturas
+    do_not_alert_if: []
+    rationale: >
+      Rajadas de vento de 50 km/h previstas. Risco de destelhamento parcial e queda de galhos em áreas residenciais.
+
+  - id: wind_strong_red_residential
+    event: wind_strong
+    severity: red
+    line_of_business: residential
+    thresholds:
+      wind_gusts_kmh: 75.0
+    action: alert
+    priority: high
+    exposure_conditions:
+      - casa_com_telhado
+      - objetos_externos
+    guidance_keys:
+      - acao_imediata_recolher_objetos
+      - manter_distancia_de_arvores
+      - nao_sair_durante_rajadas
+    do_not_alert_if: []
+    rationale: >
+      Vendaval severo (≥ 75 km/h). Risco alto de queda de árvores, estragos estruturais e projéteis soltos.
+
+  # ─── TEMPESTADE ───────────────────────────────────────────────────────────────
+  - id: storm_red_residential
+    event: storm
+    severity: red
+    line_of_business: residential
+    thresholds:
+      weather_code_min: 95
+      cape_jkg: 1800
+      wind_gusts_kmh: 70.0
+    action: alert
+    priority: high
+    exposure_conditions:
+      - qualquer_exposicao
+    guidance_keys:
+      - acao_imediata_multipla
+    do_not_alert_if: []
+    rationale: >
+      Tempestade severa combinando alta incidência elétrica, rajadas de vento e chuva forte em área residencial.
+
+  - id: storm_red_auto
+    event: storm
+    severity: red
+    line_of_business: auto
+    thresholds:
+      weather_code_min: 95
+      cape_jkg: 1800
+      wind_gusts_kmh: 70.0
+    action: alert
+    priority: high
+    exposure_conditions:
+      - veiculo_na_rua
+    guidance_keys:
+      - acao_imediata_abrigo_e_veiculo
+    do_not_alert_if:
+      - veiculo_em_garagem_coberta
+    rationale: >
+      Tempestade severa combinando rajadas de vento intensas e raios. Risco de queda de galhos/postes sobre veículos na rua.
+
+# ─── REGRAS DE COOLDOWN ─────────────────────────────────────────────────────
+cooldown:
+  min_hours_between_alerts: 24
+  max_alerts_per_week: 3
+  suppress_if_alerted_in_last_hours: 12

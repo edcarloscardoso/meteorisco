@@ -1,0 +1,21 @@
+id,name,location_id,city,state,line_of_business,exposure_profile,channel,is_high_risk,is_vip,notes
+INS001,Ana Souza,belem,Belém,PA,residential,imovel_terreo,app,true,false,Imóvel térreo em área sujeita a alagamento — persona do Master Plan
+INS002,Bruno Oliveira,sao_paulo,São Paulo,SP,auto,veiculo_na_rua,app,false,false,Veículo estacionado na rua — persona do Master Plan
+INS003,Carla Mendes,porto_alegre,Porto Alegre,RS,residential,casa_com_telhado,email,false,false,Casa com telhado e objetos externos — persona do Master Plan
+INS004,Diego Ferreira,brasilia,Brasília,DF,auto,veiculo_em_garagem_coberta,app,false,false,Garagem coberta — deve ter supressão ou prioridade menor (persona do Master Plan)
+INS005,Eduarda Costa,recife,Recife,PE,residential,regiao_costeira,email,true,false,Imóvel em zona costeira com risco de vento
+INS006,Fábio Lima,belem,Belém,PA,auto,veiculo_na_rua,sms,false,false,Veículo na rua em Belém — granizo tem menor probabilidade de atingir solo
+INS007,Gabriela Nunes,sao_paulo,São Paulo,SP,residential,imovel_terreo,app,true,true,Segurado VIP com imóvel térreo em SP
+INS008,Henrique Rocha,porto_alegre,Porto Alegre,RS,auto,veiculo_na_rua,app,false,false,Veículo na rua em Porto Alegre — granizo mais plausível de atingir solo
+INS009,Isabela Martins,brasilia,Brasília,DF,residential,casa_com_telhado,email,false,false,Casa com telhado em Brasília
+INS010,João Pereira,recife,Recife,PE,auto,veiculo_em_garagem_coberta,sms,false,false,Garagem coberta em Recife — supressão esperada para granizo
+INS011,Karina Alves,sao_paulo,São Paulo,SP,residential,area_sujeita_alagamento,app,true,false,Área historicamente sujeita a alagamento em SP
+INS012,Lucas Santos,porto_alegre,Porto Alegre,RS,residential,objetos_externos,email,false,false,Jardim com objetos externos — risco de vento
+INS013,Mariana Castro,belem,Belém,PA,residential,imovel_terreo,app,false,false,Imóvel térreo em Belém
+INS014,Nelson Teixeira,brasilia,Brasília,DF,auto,veiculo_na_rua,sms,false,false,Veículo na rua em Brasília — tempestades convectivas no verão
+INS015,Odete Ramos,recife,Recife,PE,residential,area_sujeita_alagamento,email,true,false,Área baixa em Recife sujeita a alagamento por chuvas frontais
+INS016,Paulo Moraes,sao_paulo,São Paulo,SP,auto,veiculo_em_garagem_coberta,app,false,false,Garagem coberta em SP — supressão esperada
+INS017,Quezia Barbosa,porto_alegre,Porto Alegre,RS,auto,veiculo_na_rua,sms,true,false,Veículo na rua em Porto Alegre — alto risco por granizo/vento
+INS018,Rafael Dias,belem,Belém,PA,residential,regiao_costeira,app,false,false,Imóvel em área costeira de Belém
+INS019,Sônia Andrade,brasilia,Brasília,DF,residential,objetos_externos,email,false,true,Segurado VIP com jardim em Brasília
+INS020,Thiago Ribeiro,recife,Recife,PE,auto,veiculo_na_rua,app,false,false,Veículo na rua em Recife

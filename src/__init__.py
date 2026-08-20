@@ -1,0 +1,1 @@
+"""MeteoRisco — package init."""

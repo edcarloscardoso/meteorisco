@@ -1,0 +1,138 @@
+# MeteoRisco — Playbook de Comunicação (v1.0 Produção de Domínio)
+# ─────────────────────────────────────────────────────────────────────────────
+# Diretrizes formais de tom, estrutura, regras de conteúdo e proibições.
+# Utilizado pelo Redator Preventivo (LLM) e pelo Auditor de Decisão.
+# ─────────────────────────────────────────────────────────────────────────────
+
+version: "1.0-final"
+last_updated: "2026-08-20"
+updated_by: "Especialista Seguros (CX) / Engenharia MeteoRisco"
+
+objective: >
+  Informar o segurado proativamente com antecedência suficiente para que ele tome
+  medidas preventivas simples e acionáveis, reduzindo a exposição do bem segurado
+  a danos climáticos evitáveis, enquanto fortalece a relação de cuidado com a seguradora.
+
+tone:
+  yellow:
+    label: "Informativo"
+    description: >
+      Tom tranquilo, cortês e altamente informativo. Sem urgência nem alarde.
+      Objetivo: manter o segurado atento a mudanças no clima sem gerar apreensão.
+    urgency_level: low
+    example_opening: "Identificamos uma previsão de mudanças no clima em sua região que merece atenção..."
+
+  orange:
+    label: "Preventivo"
+    description: >
+      Tom claro, focado em orientação prática. Incentiva ação preventiva sem alarmismo.
+      Objetivo: orientar o segurado a proteger o bem antes que a condição se agrave.
+    urgency_level: medium
+    example_opening: "Previsão de condições climáticas adversas nas próximas horas na sua localidade..."
+
+  red:
+    label: "Urgente / Sóbrio"
+    description: >
+      Tom sóbrio, objetivo e urgente. Foco total em ações imediatas de segurança e proteção.
+      Sem sensacionalismo ou pânico.
+    urgency_level: high
+    example_opening: "Alerta importante de tempestade / evento severo previsto para a sua área..."
+
+message_structure:
+  sections:
+    - name: contexto
+      description: "Apresentação transparente do evento meteorológico previsto na região do segurado."
+    - name: risco
+      description: "Explicação simples de como a condição pode impactar o produto segurado (imóvel ou veículo)."
+    - name: acoes
+      description: "Lista de 2 a 4 orientações práticas, diretas e imediatamente realizáveis."
+    - name: fechamento
+      description: "Reforço do canal de suporte da seguradora, sem promessas indevidas de cobertura."
+
+guidance_keys:
+  verificar_calhas: "Limpe as calhas e ralo da sua residência para evitar acúmulo de água."
+  recolher_objetos_externos: "Recolha vasos, móveis de jardim e objetos soltos da varanda."
+  buscar_abrigo_coberto: "Se possível, estacione seu veículo em uma garagem ou estacionamento coberto."
+  buscar_abrigo_coberto_imediato: "Estacione o veículo em local coberto imediatamente devido à previsão de granizo."
+  verificar_vias_alagadas: "Consulte a situação do trânsito e evite vias historicamente sujeitas a enchentes."
+  evitar_areas_de_risco: "Evite transitar por baixadas, túneis ou margens de rios durante a chuva."
+  mover_veiculo_imediatamente: "Mova seu veículo da rua para um local elevado ou abrigo seguro imediatamente."
+  nao_tentar_cruzar_enchente: "Nunca tente atravessar pontos de alagamento ou enxurradas dirigindo."
+  recolher_bens_de_valor: "Eleve móveis e eletrodomésticos em imóveis térreos propensos a alagamentos."
+  verificar_sistema_de_drenagem: "Verifique se ralos, calhas e grelhas externas estão desobstruídos."
+  identificar_rota_de_evacuacao: "Manuseie documentos essenciais e mantenha rotas de saída livres."
+  verificar_telhado_apos_evento: "Verifique o telhado após a passagem do evento para identificar telhas trincadas."
+  verificar_fixacao_de_estruturas: "Garanta que antenas, coberturas leves e portões estejam bem fixados."
+  manter_distancia_de_arvores: "Mantenha distância de árvores de grande porte e estruturas metálicas soltas."
+  nao_sair_durante_rajadas: "Evite sair de casa ou circular a pé durante rajadas de vento intenso."
+  nao_estacionar_sob_arvores: "Evite estacionar seu veículo embaixo de árvores ou placas de sinalização."
+  contato_previo_com_prestadores: "Deixe à mão os telefones úteis e de serviços de emergência da sua apólice."
+  contato_emergencial: "Em emergências, contate a Defesa Civil (199) ou o Corpo de Bombeiros (193)."
+  acao_imediata_recolher_bens: "Coloque bens valiosos em locais altos e desligue aparelhos da tomada."
+  acao_imediata_multipla: "Permaneça em local seguro, longe de janelas, e desconecte eletrônicos."
+  acao_imediata_abrigo_e_veiculo: "Estacione o carro em abrigo seguro e permaneça dentro de uma edificação."
+  acao_imediata_abrigo_coberto: "Proteja seu automóvel em local coberto com urgência para evitar estragos por granizo."
+
+prohibitions:
+  forbidden_phrases:
+    - pattern: "garantimos (a |que a )?indenização"
+      reason: "Promessa indevida de garantia ou ressarcimento financeiro automático."
+    - pattern: "sua apólice cobre"
+      reason: "Afirmação categórica sobre cobertura contratual sem análise prévia de sinistro."
+    - pattern: "você (será|vai ser) indenizado"
+      reason: "Garantia antecipada de liquidação de sinistro."
+    - pattern: "com certeza (vai|irá) granizar"
+      reason: "Superlativo ou garantia determinística sobre modelo numérico de previsão."
+    - pattern: "granizo (confirmado|detectado|observado)"
+      reason: "Alegação de observação em tempo real para dado que é previsão modelada."
+    - pattern: "evacuação (obrigatória|imediata)"
+      reason: "Ordem de evacuação é prerrogativa exclusiva da Defesa Civil."
+    - pattern: "risco de morte"
+      reason: "Linguagem excessivamente alarmista e não sóbria."
+    - pattern: "não temos responsabilidade"
+      reason: "Linguagem defensiva ou inadequada ao segurado."
+
+  forbidden_themes:
+    - theme: "promessa_de_cobertura"
+      description: "Garantir ressarcimento, prometer indenização ou declarar cobertura de sinistros no texto."
+    - theme: "alarmismo_excessivo"
+      description: "Usar caixa alta excessiva, termos pânicos ou alertas de perigo de vida indevidos."
+    - theme: "informacao_tecnica_sem_contexto"
+      description: "Exibir termos como 'CAPE de 2500 J/kg' ou 'WMO code 99' sem tradução para o cliente."
+    - theme: "orientacao_medica_ou_juridica"
+      description: "Instruções fora do escopo de prevenção patrimonial."
+
+  required_elements:
+    - element: "identificacao_do_risco"
+      description: "Toda mensagem deve identificar claramente o evento previsto (ex: chuva forte, rajadas de vento)."
+    - element: "pelo_menos_uma_acao"
+      description: "Toda mensagem deve indicar ao menos uma recomendação prática e acionável."
+
+silence_rules:
+  - rule: "evento_abaixo_do_limiar"
+    description: "Se os índices climáticos ficarem abaixo dos limiares da risk_matrix, suprimir envio."
+  - rule: "cooldown_ativo"
+    description: "Não enviar nova mensagem ao mesmo segurado no intervalo menor que 24 horas."
+  - rule: "exposicao_incompativel"
+    description: "Suprimir notificação para segurados cuja exposição atenue o risco (ex: carro em garagem durante granizo)."
+
+language:
+  formality: "Português formal, claro e acessível. Tratar por 'você'."
+  hail_vocabulary: >
+    ATENÇÃO: Granizo é uma classificação proveniente de modelo numérico (NWP).
+    É OBRIGATÓRIO utilizar expressões de ressalva como: "previsão de granizo",
+    "possibilidade de granizo prevista por modelos meteorológicos" ou "condições favoráveis ao granizo".
+
+channels:
+  app:
+    description: "Push Notification / Mensagem App Seguradora"
+    max_length: 500
+    supports_rich: true
+  email:
+    description: "E-mail Preventivo Personalizado"
+    max_length: 1500
+    requires_subject: true
+  sms:
+    description: "SMS Preventivo Curto"
+    max_length: 160
+    supports_rich: false

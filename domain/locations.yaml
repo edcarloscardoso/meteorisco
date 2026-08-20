@@ -1,0 +1,78 @@
+# MeteoRisco — Localidades-Piloto Nacionais
+# Arquivo de configuração geográfica do MVP.
+#
+# DECISÃO TOMADA (Master Plan v1.1, seção 8):
+# Uma localidade é representada por uma coordenada de referência (lat/lon).
+# Granularidade submunicipal (bairros, microclimas) está FORA do escopo.
+# Cidade ≠ cobertura meteorológica de todos os bairros.
+#
+# O que este arquivo demonstra:
+# - Parametrização geográfica: localidades são dados de config, não código
+# - Ausência de regras hardcoded específicas para uma cidade
+# - Mesmo pipeline executa para qualquer localidade aqui listada
+#
+# Fonte das coordenadas: OpenStreetMap / IBGE
+
+locations:
+  - id: belem
+    city: Belém
+    state: PA
+    region: norte
+    latitude: -1.4558
+    longitude: -48.4902
+    timezone: America/Belem
+    climate_profile: "Equatorial úmido, chuvas intensas convectivas"
+    notes: >
+      Atenção epistemológica: em clima equatorial, pedras de granizo previstas
+      pelo modelo global (WMO 96/99) podem sofrer fusão térmica antes de
+      atingir o solo. Usar indicadores CAPE + lifted_index como inferência
+      de convecção potencialmente produtora de granizo.
+
+  - id: recife
+    city: Recife
+    state: PE
+    region: nordeste
+    latitude: -8.0476
+    longitude: -34.8770
+    timezone: America/Recife
+    climate_profile: "Tropical litorâneo, chuvas frontais"
+    notes: >
+      Zona costeira com ventos marítimos. Chuvas concentradas no período
+      chuvoso (mar-ago). Risco de alagamento em áreas baixas.
+
+  - id: brasilia
+    city: Brasília
+    state: DF
+    region: centro_oeste
+    latitude: -15.7975
+    longitude: -47.8919
+    timezone: America/Sao_Paulo
+    climate_profile: "Tropical de altitude, estações seca/úmida definidas"
+    notes: >
+      Estação chuvosa (out-mar) com tempestades convectivas intensas à tarde.
+      Período seco (abr-set) com baixa umidade. CAPE elevado no verão.
+
+  - id: sao_paulo
+    city: São Paulo
+    state: SP
+    region: sudeste
+    latitude: -23.5505
+    longitude: -46.6333
+    timezone: America/Sao_Paulo
+    climate_profile: "Subtropical, granizo e tempestades convectivas"
+    notes: >
+      Alta densidade de veículos expostos (ramo Auto relevante).
+      Granizo modelado frequente no verão. Alagamentos em pontos críticos.
+
+  - id: porto_alegre
+    city: Porto Alegre
+    state: RS
+    region: sul
+    latitude: -30.0346
+    longitude: -51.2177
+    timezone: America/Sao_Paulo
+    climate_profile: "Subtropical, frentes frias, granizo e vendavais"
+    notes: >
+      Frentes frias frequentes com vento forte. Granizo mais plausível
+      de atingir o solo (menor fusão térmica vs. regiões equatoriais).
+      Risco elevado para ramo Residencial (telhados, objetos externos).
