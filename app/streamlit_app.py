@@ -560,8 +560,8 @@ def load_ibge_regions():
                     else:
                         new_features.append(feat)
                 return {"type": "FeatureCollection", "features": new_features}
-        except Exception:
-            pass
+            except Exception:
+                pass
     return None
 
 def build_brazil_map(selected_city_id: str):
