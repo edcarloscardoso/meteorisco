@@ -1,31 +1,54 @@
-# METEORISCO — RELATÓRIO TÉCNICO & DE ENGENHARIA
+\begin{titlepage}
+\centering
+{\large\textbf{INSTITUTO DE INTELIGÊNCIA ARTIFICIAL APLICADA — I2A2}\par}
+\vspace{0.2cm}
+{\normalsize PROGRAMA DE ESPECIALIZAÇÃO EM AI ENGINEERING \& SISTEMAS MULTIAGENTE\par}
+\vspace{1.6cm}
 
-**Programa de Especialização em Inteligência Artificial Aplicada (I2A2)**  
-**Desafio 05:** Ferramenta Inteligente para Comunicação Proativa com o Segurado  
-**Equipe:** Seguros Connect  
-**Data:** 12 de Setembro de 2026  
-**Status da Solução:** MVP Concluído & Homologado — 26/26 Testes Aprovados (100% Pass)  
+{\normalsize\textbf{EQUIPE SEGUROS CONNECT}\par}
+\vspace{0.3cm}
+{\small
+Edcarlos Cardôso de Farias \quad Eric Pimentel \quad Kleber Dias da Silva\\
+\vspace{0.1cm}
+Luiz Guilherme Rodrigues Silva \quad Suellen Munford Merat\par}
+\vspace{2.6cm}
 
-### Equipe de Desenvolvimento:
-- **Edcarlos Cardôso de Farias** — edcarlos.cfarias@gmail.com | (82) 99935-1714
-- **Eric Pimentel** — casajogos242@gmail.com | (91) 98624-8987
-- **Kleber Dias da Silva** — kdias.contabilista@gmail.com | (11) 99174-9480
-- **Luiz Guilherme Rodrigues Silva** — guilhersilv@hotmail.com | (61) 98313-3519
-- **Suellen Munford Merat** — suellenmunford@gmail.com | (21) 97475-2272
+{\Large\textbf{METEORISCO}\par}
+\vspace{0.4cm}
+{\large\textbf{Sistema Inteligente e Multiagente para Prevenção Atuarial de Sinistros e Comunicação Proativa com o Segurado}\par}
+\vspace{2.2cm}
 
-### Acesso Público e Demonstração Operacional:
-- **Repositório Oficial no GitHub:** [https://github.com/edcarloscardoso/meteorisco](https://github.com/edcarloscardoso/meteorisco)
-- **Repositório Fork (Deploy Streamlit):** [https://github.com/enps2015/meteorisco](https://github.com/enps2015/meteorisco)
-- **Aplicação em Nuvem (Streamlit Cloud):** [https://meteorisco-fypi76f3ra7umxw8v9hbgt.streamlit.app](https://meteorisco-fypi76f3ra7umxw8v9hbgt.streamlit.app)
+\hfill
+\begin{minipage}{0.55\textwidth}
+\begin{spacing}{1.1}
+\small
+Relatório Técnico Final apresentado ao Instituto de Inteligência Artificial Aplicada (I2A2) como requisito avaliativo de conclusão do Desafio 05 do Programa de Especialização em AI Engineering \& Sistemas Multiagente.\\
+\\
+\textbf{Repositório Oficial no GitHub:}\\
+\url{https://github.com/edcarloscardoso/meteorisco}\\
+\\
+\textbf{Aplicação em Nuvem (Streamlit Cloud):}\\
+\url{https://meteorisco-fypi76f3ra7umxw8v9hbgt.streamlit.app}
+\end{spacing}
+\end{minipage}
 
+\vfill
+{\normalsize São Paulo — SP\\ 2026\par}
+\end{titlepage}
+
+\newpage
 
 # 1. RESUMO EXECUTIVO & PROPOSTA DE VALOR
 
 O MeteoRisco é uma solução de inteligência preventiva (*loss prevention*) voltada para carteiras de seguros nos ramos Automóvel e Residencial. Seu propósito fundamental é transformar a dinâmica histórica do mercado segurador: em vez de manter uma postura puramente reativa — na qual o segurado procura a companhia apenas após o desastre consumado para solicitar indenização —, a plataforma monitora continuamente previsões meteorológicas em tempo real, avalia o potencial de dano com regras de subscrição (*underwriting*) determinísticas e emite orientações práticas e personalizadas antes da ocorrência do sinistro.
 
-![Comparativo entre o Modelo Tradicional Reativo e o Modelo MeteoRisco Proativo](docs/diagramas/diagrama_paradigma.png){width=95%}
-
-*Fonte: Autores (2026).*
+\begin{figure}[H]
+\centering
+\caption{Comparativo entre o Modelo Tradicional Reativo e o Modelo MeteoRisco Proativo}
+\includegraphics[width=0.95\linewidth]{docs/diagramas/diagrama_paradigma.png}
+\vspace{0.2cm}
+\footnotesize\textbf{Fonte:} Autores (2026).
+\end{figure}
 
 A solução foi concebida sob uma arquitetura multiagente desacoplada, orientada por contratos de dados rigorosamente tipados e alicerçada em uma premissa inegociável de engenharia: a elegibilidade de quem recebe o alerta e a matriz de riscos são 100% determinísticas. Modelos de Linguagem (LLM) são empregados exclusivamente na camada de redação e personalização da linguagem humana, impedindo qualquer alucinação jurídica ou distorção de coberturas securitárias. Além disso, a plataforma introduz o conceito do Silêncio Inteligente: quando as condições climáticas estão dentro dos padrões normais ou o segurado possui proteção natural, o sistema deliberadamente não dispara mensagens, protegendo o cliente da fadiga de alertas desnecessários.
 
@@ -64,27 +87,31 @@ O MeteoRisco resolve esse dilema combinando dados meteorológicos em tempo real,
 
 Para cumprir integralmente o escopo pedagógico e técnico do Desafio 05, o sistema foi concebido e implementado de acordo com a matriz de requisitos abaixo:
 
-| Requisito | Descrição Funcional / Não-Funcional | Status no MVP |
-|:----------------|:---------------------------------------------------------|:-------------:|
-| RF-01: Ingestão Climática Aberta | Obtenção de previsões meteorológicas em tempo real sem dependência de chaves de API restritivas. | Aprovado |
-| RF-02: Underwriting Determinístico | Matriz de regras com limiares objetivos de chuva, vento, código WMO e convecção (CAPE). | Aprovado |
-| RF-03: Segmentação Auto & Residencial | Aplicação de regras específicas para cada ramo de seguro e característica do bem. | Aprovado |
-| RF-04: Silêncio Inteligente | Supressão de mensagens quando o clima não oferece risco ou o bem está protegido. | Aprovado |
-| RF-05: Redação Preventiva Contextual | Geração de texto empático, claro e acionável para múltiplos canais (SMS, WhatsApp/App, E-mail). | Aprovado |
-| RF-06: Auditoria de Conformidade | Bloqueio automático de promessas de indenização, alarmismo excessivo ou alucinações. | Aprovado |
-| RF-07: Intervenção Humana (HITL) | Interface para operador inspecionar a trilha de agentes e exercer direito de veto manual. | Aprovado |
-| RNF-01: Resiliência e Fallback Offline | Garantia de funcionamento ininterrupto mesmo em caso de falha de conexão ou ausência de cota de LLM. | Aprovado |
-| RNF-02: Integridade Criptográfica | Geração de hash SHA-256 e timestamps UTC para auditoria atuarial de cada comunicação. | Aprovado |
-| RNF-03: Performance de Execução | Ciclo completo executado em fração de segundo (~120ms), viabilizando lotes volumosos. | Aprovado |
+| Requisito | Descrição Sintética | Status |
+|:---------------------------|:------------------------------------------------|:-------------:|
+| RF-01: Clima em Tempo Real | Obtenção de previsões via Open-Meteo sem chaves pagas. | Aprovado |
+| RF-02: Underwriting Regrado | Matriz determinística com limiares objetivos de chuva e vento. | Aprovado |
+| RF-03: Segmentação de Ramos | Regras distintas para seguro Automóvel e Residencial. | Aprovado |
+| RF-04: Silêncio Inteligente | Supressão de mensagens quando o bem está protegido. | Aprovado |
+| RF-05: Redação Contextual | Texto empático e acionável por canal (SMS, App, E-mail). | Aprovado |
+| RF-06: Auditoria de Regras | Bloqueio prévio de promessas indevidas de indenização. | Aprovado |
+| RF-07: Controle Humano (HITL) | Painel com prerrogativa de veto manual do operador. | Aprovado |
+| RNF-01: Resiliência Offline | Funcionamento ininterrupto com fixtures em falha de rede. | Aprovado |
+| RNF-02: Trilha com SHA-256 | Registro auditável imutável de cada comunicação emitida. | Aprovado |
+| RNF-03: Alta Performance | Ciclo completo executado em ~120 milissegundos. | Aprovado |
 
 
 # 4. ARQUITETURA DA SOLUÇÃO (AI ENGINEERING)
 
 A arquitetura do MeteoRisco segue o padrão moderno de Engenharia de Inteligência Artificial em cinco camadas desacopladas, assegurando isolamento estrutural e alta testabilidade:
 
-![Visão Arquitetural em Cinco Camadas Desacopladas do MeteoRisco](docs/diagramas/diagrama_arquitetura.png){width=95%}
-
-*Fonte: Autores (2026).*
+\begin{figure}[H]
+\centering
+\caption{Visão Arquitetural em Cinco Camadas Desacopladas do MeteoRisco}
+\includegraphics[width=0.95\linewidth]{docs/diagramas/diagrama_arquitetura.png}
+\vspace{0.2cm}
+\footnotesize\textbf{Fonte:} Autores (2026).
+\end{figure}
 
 As cinco camadas operam com responsabilidades bem delimitadas:
 1. Camada de Apresentação (Interface Executiva — Streamlit): Provê o painel operacional com neurodesign em modo escuro, renderização geográfica vetorial das cinco regiões do IBGE, disparo de simulações e painel de governança Human-in-the-Loop;
@@ -98,9 +125,13 @@ As cinco camadas operam com responsabilidades bem delimitadas:
 
 Em vez de concentrar toda a lógica em um único modelo de linguagem monolítico — abordagem propensa a alucinações e erros de subscrição —, o MeteoRisco adota seis agentes especializados com atribuições estritas e complementares, operando em cadeia sequencial sob supervisão humana.
 
-![Pipeline Sequencial dos Agentes Especializados e Governança Human-in-the-Loop](docs/diagramas/diagrama_agentes.png){width=98%}
-
-*Fonte: Autores (2026).*
+\begin{figure}[H]
+\centering
+\caption{Pipeline Sequencial dos Agentes Especializados e Governança Human-in-the-Loop}
+\includegraphics[width=0.98\linewidth]{docs/diagramas/diagrama_agentes.png}
+\vspace{0.2cm}
+\footnotesize\textbf{Fonte:} Autores (2026).
+\end{figure}
 
 ## 5.1 Scout Climático (`scout.py`)
 O Scout Climático atua como o sentinela meteorológico do sistema. Ele é responsável por conectar-se à API pública do Open-Meteo passando as coordenadas geográficas da localidade monitorada. O agente extrai séries temporais para as próximas 24 horas contemplando precipitação acumulada (`precipitation`), velocidade das rajadas de vento a 10 metros (`wind_gusts_10m`), código de tempo meteorológico WMO (`weather_code`), energia potencial convectiva disponível (`cape`) e índice de levantamento atmosférico (`lifted_index`). Se a conectividade externa falhar, o Scout aciona automaticamente fixtures locais em `fixtures/`, mantendo a estabilidade operacional.
@@ -133,30 +164,42 @@ O Simulador de Notificações representa a central transacional de disparos. Ele
 
 A seleção tecnológica do projeto priorizou solidez, simplicidade de implantação e aderência aos padrões de mercado:
 
-| Tecnologia | Versão | Função na Solução | Justificativa Técnica |
-|:--------------------|:-------:|:----------------------------|:-----------------------------------------------------|
-| Python | 3.11+ | Linguagem e Runtime | Padrão dominante em ciência de dados e tipagem estática moderna. |
-| Pydantic v2 | 2.8+ | Contratos de Dados | Validação estrita de schemas em tempo de execução com altíssima performance. |
-| Pydantic-Settings | 2.4+ | Gestão de Configuração | Leitura tipada de variáveis de ambiente com suporte a arquivos `.env`. |
-| Streamlit | 1.38+ | Interface do Usuário | Construção rápida de dashboards reativos em Python com suporte a neurodesign. |
-| Plotly | 5.24+ | Visualização Cartográfica | Renderização vetorial leve de malhas GeoJSON oficiais do IBGE sem chaves pagas. |
-| Open-Meteo API | v1 REST | Provedor Meteorológico | Dados abertos em tempo real, sem necessidade de token e com variáveis convectivas. |
-| Pytest & HTTPX | 8.3+ | Suíte de Testes | Execução veloz de testes unitários com simulação controlada de I/O (`respx`). |
+| Tecnologia | Versão | Papel na Arquitetura | Justificativa Técnica |
+|:-------------------|:--------------:|:-------------------------|:--------------------------------------|
+| Python | 3.11+ | Linguagem Base | Padrão da indústria e tipagem estática. |
+| Pydantic v2 | 2.8+ | Contratos Tipados | Validação de schemas em memória com alta velocidade. |
+| Pydantic-Settings | 2.4+ | Configuração | Leitura tipada de variáveis de ambiente (.env). |
+| Streamlit | 1.38+ | Interface Gráfica | Painel reativo executivo com neurodesign. |
+| Plotly | 5.24+ | Cartografia | Mapas vetoriais sobre malha GeoJSON do IBGE. |
+| Open-Meteo API | v1 REST | Provedor de Clima | Dados abertos em tempo real e variáveis CAPE. |
+| Pytest & HTTPX | 8.3+ | Testes Automatizados | Testes unitários com simulação controlada (respx). |
 
 ## 6.1 Racional da Escolha da API Open-Meteo
 Durante o estudo de viabilidade, foram comparadas três alternativas de dados meteorológicos:
-1. OpenWeatherMap (Plano Gratuito): Exige cadastro e chave de API pessoal; não disponibiliza variáveis de convecção profunda e possui limite restrito de requisições;
-2. INMET (Instituto Nacional de Meteorologia): Apresenta histórico consolidado no Brasil, mas sua interface REST carece de previsões horárias futuras consistentes e enfrenta frequentes instabilidades de infraestrutura;
-3. Open-Meteo (Escolha Adotada): Totalmente aberta, sem necessidade de chave de autenticação, alta disponibilidade comprovada (>99,9%) e fornecimento nativo de energia potencial convectiva (`cape` em J/kg) e índice de instabilidade (`lifted_index`). Esses parâmetros são cruciais para a previsão assertiva de tempestades de granizo no território brasileiro.
+
+| Critério Avaliado | Open-Meteo (Adotado) | OpenWeatherMap (Free) | INMET Oficial |
+|:-----------------------|:----------------------|:----------------------|:----------------------|
+| Autenticação | Aberto (Sem API Key) | Exige Chave de API | Chave restrita |
+| Horizonte Temporal | Horário até 16 dias | A cada 3h (5 dias) | Predom. histórico |
+| Convecção (CAPE) | Disponível (J/kg) | Indisponível no free | Indisponível via API |
+| Índice de Instabilidade | Disponível (Lifted) | Indisponível | Indisponível |
+| Códigos de Tempo | Suporte WMO (95/96/99) | Códigos proprietários | Dados brutos |
+| Disponibilidade | Elevada (>99,9%) | Boa | Instável |
+
+A presença de dados de convecção profunda (`cape` e `lifted_index`) foi o diferencial decisivo: tempestades de granizo e rajadas severas de vento no Brasil ocorrem por convecção térmica severa, parâmetros que o Open-Meteo disponibiliza abertamente.
 
 
 # 7. FLUXO DE PROCESSAMENTO DETALHADO (ENGINE FLOW)
 
 A execução do pipeline do MeteoRisco segue uma sequência de seis etapas integradas, representadas no fluxo a seguir:
 
-![Fluxo de Processamento Ponta a Ponta (Engine Flow)](docs/diagramas/diagrama_fluxo.png){width=95%}
-
-*Fonte: Autores (2026).*
+\begin{figure}[H]
+\centering
+\caption{Fluxo de Processamento Ponta a Ponta (Engine Flow)}
+\includegraphics[width=0.95\linewidth]{docs/diagramas/diagrama_fluxo.png}
+\vspace{0.2cm}
+\footnotesize\textbf{Fonte:} Autores (2026).
+\end{figure}
 
 O detalhamento operacional de cada etapa compreende:
 1. Fase 1 (Coleta Meteorológica): O Scout Climático conecta-se à API do Open-Meteo, recupera as séries horárias das próximas 24 horas e calcula os valores extremos (pico de precipitação, rajada máxima e instabilidade convectiva);
@@ -178,15 +221,15 @@ Essa distinção elimina de forma definitiva o risco de alucinações em critér
 ## 8.2 Matriz de Riscos (`risk_matrix.yaml`)
 A Matriz de Riscos do sistema adota limiares técnicos calibrados para a realidade climática brasileira:
 
-| Evento de Risco | Severidade | Limiares Técnicos de Acionamento | Condição de Vulnerabilidade Específica |
-|:-------------------|:----------:|:----------------------------------|:---------------------------------------|
-| Chuva Moderada | Amarelo | Precipitação $\ge 5{,}0$ mm/h | Imóvel térreo; veículo estacionado na rua |
-| Chuva Forte / Alagamento | Laranja | Precipitação $\ge 15{,}0$ mm/h | Residências em baixadas; tráfego urbano |
-| Tempestade Severa | Vermelho | Precipitação $\ge 30{,}0$ mm/h ou WMO 95 | Toda a carteira exposta ao ar livre |
-| Vendaval Moderado | Laranja | Rajadas de vento $\ge 50$ km/h | Imóveis com coberturas leves ou árvores |
-| Vendaval Severo | Vermelho | Rajadas de vento $\ge 70$ km/h | Residências com telhados tradicionais |
-| Previsão de Granizo | Laranja | Código WMO 96 ou CAPE $\ge 1500$ J/kg | Veículos sem garagem coberta |
-| Granizo Severo | Vermelho | Código WMO 99 ou CAPE $\ge 2500$ J/kg | Veículos na rua (prioridade máxima de abrigo) |
+| Evento de Risco | Severidade | Limiares Técnicos | Condição de Vulnerabilidade |
+|:-------------------|:-------------:|:----------------------|:-----------------------------------|
+| Chuva Moderada | Amarelo | Precipitação $\ge 5$ mm/h | Imóvel térreo; veículo na rua |
+| Chuva Forte | Laranja | Precipitação $\ge 15$ mm/h | Casas em baixada; vias urbanas |
+| Tempestade Severa | Vermelho | Precipitação $\ge 30$ mm/h | Toda a carteira exposta |
+| Vendaval Moderado | Laranja | Rajadas $\ge 50$ km/h | Coberturas leves e telhas |
+| Vendaval Severo | Vermelho | Rajadas $\ge 70$ km/h | Residências com telhados |
+| Previsão Granizo | Laranja | WMO 96 ou CAPE $\ge 1500$ | Veículos sem garagem coberta |
+| Granizo Severo | Vermelho | WMO 99 ou CAPE $\ge 2500$ | Veículos na rua (prioritário) |
 
 ## 8.3 A Diferenciação Semântica por Ramo
 A mesma tempestade climática impõe ameaças distintas conforme a natureza do bem:
@@ -228,26 +271,27 @@ Abaixo estão transcritos exemplos literais de comunicações produzidas pelo Me
 ## 10.1 Inspeção Regulatória do Auditor de Decisão
 O agente Auditor aplica filtros automáticos por correspondência de padrões e análise semântica. O quadro abaixo demonstra casos reais de fiscalização:
 
-| Conteúdo Inspecionado no Rascunho | Classificação | Parecer do Auditor | Fundamentação Regulatória |
-|:-----------------------------------------------------|:-------------:|:------------------:|:---------------------------------------------------|
-| "Garantimos a indenização integral de qualquer dano." | Violação | BLOQUEADO | Promessa antecipada de cobertura sem regulação de sinistro. |
-| "Com certeza vai cair granizo pesado no seu bairro." | Violação | BLOQUEADO | Afirmação categórica sobre modelo probabilístico de clima. |
-| "Você corre risco de morte se permanecer no local!" | Violação | BLOQUEADO | Tom alarmista e sensacionalista incompatível com seguros. |
-| "Evacue o bairro imediatamente e busque abrigo." | Violação | BLOQUEADO | Prerrogativa institucional privativa da Defesa Civil. |
-| "Previsão de chuva forte. Recomendamos guardar o veículo." | Conforme | APROVADO | Orientação educativa, preventiva e juridicamente correta. |
+| Conteúdo Inspecionado | Classificação | Parecer | Fundamentação Regulatória |
+|:---------------------------------|:-------------:|:-------------------:|:---------------------------------|
+| "Garantimos a indenização integral." | Violação | BLOQUEADO | Promessa indevida sem regulação. |
+| "Com certeza vai cair granizo pesado." | Violação | BLOQUEADO | Afirmação categórica sobre modelo. |
+| "Você corre risco de morte!" | Violação | BLOQUEADO | Tom alarmista e sensacionalista. |
+| "Evacue o bairro imediatamente." | Violação | BLOQUEADO | Prerrogativa exclusiva Defesa Civil. |
+| "Previsão de chuva forte. Guarde o carro." | Conforme | APROVADO | Mensagem preventiva correta. |
 
 ## 10.2 Trilha de Auditoria com Hash SHA-256
 Cada notificação homologada gera uma estrutura de log padronizada em conformidade com as diretrizes da LGPD:
 ```json
 {
-  "notification_id": "notif_sao_paulo_20260912T222129_f91a2b3c",
-  "cycle_id": "sao_paulo_20260912T222129_a1b2c3d4",
+  "notification_id": "notif_sao_paulo_20260912T222129_f91a",
+  "cycle_id": "sao_paulo_20260912T222129_a1b2",
   "insured_id": "INS001",
   "channel": "sms",
   "status": "sent",
   "timestamp_utc": "2026-09-12T22:21:29.412Z",
   "approved_by": "operador_hitl",
-  "content_hash_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  "content_hash_sha256": 
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 }
 ```
 O hash SHA-256 garante a não-repudiação da comunicação perante instâncias de fiscalização (como a SUSEP e auditorias de solvência), provando o exato teor da mensagem enviada e o contexto meteorológico que a motivou.
@@ -269,53 +313,53 @@ A robustez da solução é atestada por duas suítes automatizadas complementare
 
 ## 12.1 Testes Unitários de Componentes via Pytest (13/13 Aprovados)
 
-| Arquivo de Teste | Camada / Componente Auditado | Qtd. Testes | Resultado |
-|:---------------------------------------|:-----------------------------------------------------|:-----------:|:---------:|
-| test_apply_risk_matrix.py | Motor determinístico da Matriz de Riscos | 1 | APROVADO |
-| test_audit_message.py | Bloqueio de frases proibidas e mensagens conformes | 2 | APROVADO |
-| test_fetch_weather.py | Coleta via API Open-Meteo, fixtures e resiliência | 3 | APROVADO |
-| test_normalize_weather.py | Normalização estatística e pior cenário em 24h | 1 | APROVADO |
-| test_runner.py | Orquestração do ciclo e tratamento de exceções | 2 | APROVADO |
-| test_select_insureds.py | Seleção de carteira e Silêncio Inteligente | 2 | APROVADO |
-| test_simulate_notify.py | Trilha criptográfica SHA-256 e respeito a vetos | 2 | APROVADO |
-| **TOTAL UNITÁRIOS** | **Suíte de Testes Unitários de Componentes** | **13** | **100% PASS** |
+| Arquivo de Teste | Camada Auditada | Qtd. | Resultado |
+|:---------------------------------------|:-----------------------------|:----:|:-------------:|
+| test_apply_risk_matrix.py | Matriz determinística de underwriting | 1 | APROVADO |
+| test_audit_message.py | Bloqueio de frases proibidas | 2 | APROVADO |
+| test_fetch_weather.py | Coleta Open-Meteo e fixtures offline | 3 | APROVADO |
+| test_normalize_weather.py | Normalização estatística de pior caso | 1 | APROVADO |
+| test_runner.py | Orquestração do ciclo e tratamento | 2 | APROVADO |
+| test_select_insureds.py | Seleção de carteira e Silêncio Ativo | 2 | APROVADO |
+| test_simulate_notify.py | Trilha com SHA-256 e respeito a vetos | 2 | APROVADO |
+| **TOTAL UNITÁRIOS** | **Suíte de Testes Unitários** | **13** | **100% PASS** |
 
 ## 12.2 Suíte de Golden Evals de Negócio (`eval_runner.py` — 13/13 Aprovados)
 
-| Caso de Teste | Descrição do Cenário de Negócio | Localidade / Região | Resultado |
-|:--------------|:-----------------------------------------------------|:--------------------|:---------:|
-| EV1 | Granizo Severo: Alerta para carro na rua e telhado | São Paulo (SP) | APROVADO |
-| EV2 | Chuva Forte Laranja: Alagamento em casas térreas | Belém (PA) | APROVADO |
-| EV3 | Vendaval Severo: Impacto em coberturas vulneráveis | Porto Alegre (RS) | APROVADO |
-| EV4 | Evento Abaixo do Limiar: Silêncio Inteligente | Brasília (DF) | APROVADO |
-| EV5 | Conformidade: Bloqueio de promessa de indenização | São Paulo (SP) | APROVADO |
-| EV6 | Segmentação Semântica: Diferenciação Auto vs Residencial | São Paulo (SP) | APROVADO |
-| EV7 | Resiliência: Acionamento de fallback em falha de API | Recife (PE) | APROVADO |
-| EV8 | Human-in-the-Loop: Respeito ao veto manual do operador | São Paulo (SP) | APROVADO |
-| EV-GEO-1 | Validação Regional Norte: Convecção equatorial | Belém (PA) | APROVADO |
-| EV-GEO-2 | Validação Regional Nordeste: Chuvas tropicais costeiras | Recife (PE) | APROVADO |
-| EV-GEO-3 | Validação Regional Centro-Oeste: Instabilidade de verão | Brasília (DF) | APROVADO |
-| EV-GEO-4 | Validação Regional Sudeste: Ilhas de calor e granizo | São Paulo (SP) | APROVADO |
-| EV-GEO-5 | Validação Regional Sul: Ciclogênese e vendavais | Porto Alegre (RS) | APROVADO |
-| **TOTAL EVALS** | **Cenários Homologados de Ponta a Ponta** | **5 Regiões do Brasil** | **100% PASS** |
+| Caso | Cenário de Negócio Homologado | Praça Piloto | Resultado |
+|:-------------|:---------------------------------------|:-------------------|:-------------:|
+| EV1 | Granizo Vermelho: Carro na rua e telhado | São Paulo (SP) | APROVADO |
+| EV2 | Chuva Laranja: Alagamento casa térrea | Belém (PA) | APROVADO |
+| EV3 | Vendaval Severo: Cobertura vulnerável | Porto Alegre (RS) | APROVADO |
+| EV4 | Abaixo do Limiar: Silêncio Inteligente | Brasília (DF) | APROVADO |
+| EV5 | Conformidade: Bloqueio de promessa | São Paulo (SP) | APROVADO |
+| EV6 | Segmentação: Ações distintas Auto/Res | São Paulo (SP) | APROVADO |
+| EV7 | Resiliência: Fallback em queda de API | Recife (PE) | APROVADO |
+| EV8 | Human-in-the-Loop: Veto do operador | São Paulo (SP) | APROVADO |
+| EV-GEO-1 | Região Norte: Convecção equatorial | Belém (PA) | APROVADO |
+| EV-GEO-2 | Região Nordeste: Chuvas costeiras | Recife (PE) | APROVADO |
+| EV-GEO-3 | Região Centro-Oeste: Verão instável | Brasília (DF) | APROVADO |
+| EV-GEO-4 | Região Sudeste: Granizo urbano | São Paulo (SP) | APROVADO |
+| EV-GEO-5 | Região Sul: Vendaval e frente fria | Porto Alegre (RS) | APROVADO |
+| **TOTAL** | **Suíte de Evals de Ponta a Ponta** | **5 Regiões** | **100% PASS** |
 
 ### Registro de Execução da Suíte de Evals:
-```
-======================== 13 passed, 1 warning in 0.26s =========================
+```text
+======================= 13 passed, 1 warning in 0.26s =======================
 INFO - === Iniciando Execução da Suíte Completa de Evals (13 cenários) ===
 ...
-INFO - [EV1] Granizo vermelho em São Paulo para segurados expostos ... [OK] PASSED
-INFO - [EV2] Chuva intensa Laranja em Belém ........................... [OK] PASSED
-INFO - [EV3] Vento forte em Porto Alegre afetando residências ........ [OK] PASSED
-INFO - [EV4] Evento abaixo do limiar (Silêncio Inteligente) .......... [OK] PASSED
-INFO - [EV5] Conformidade: Bloqueio de promessa de indenização ....... [OK] PASSED
-INFO - [EV6] Personalização: Ações distintas por ramo ................. [OK] PASSED
-INFO - [EV7] Resiliência: Acionamento de fallback em falha de API .... [OK] PASSED
-INFO - [EV8] Human-in-the-Loop: Respeito ao veto manual .............. [OK] PASSED
-INFO - [EV-GEO-1 a 5] Cobertura das 5 macrorregiões do IBGE .......... [OK] PASSED
-================================================================================
+INFO - [EV1] Granizo vermelho em SP para segurados expostos .... [OK] PASSED
+INFO - [EV2] Chuva intensa Laranja em Belém .................... [OK] PASSED
+INFO - [EV3] Vento forte em Porto Alegre afetando residências .. [OK] PASSED
+INFO - [EV4] Evento abaixo do limiar (Silêncio Inteligente) .... [OK] PASSED
+INFO - [EV5] Conformidade: Bloqueio de promessa de indenização . [OK] PASSED
+INFO - [EV6] Personalização: Ações distintas por ramo .......... [OK] PASSED
+INFO - [EV7] Resiliência: Acionamento de fallback .............. [OK] PASSED
+INFO - [EV8] Human-in-the-Loop: Respeito ao veto manual ........ [OK] PASSED
+INFO - [EV-GEO-1 a 5] Cobertura das 5 macrorregiões do IBGE .... [OK] PASSED
+=============================================================================
 INFO -   RESULTADO FINAL DOS EVALS: 13/13 PASSERAM (100.0%)
-================================================================================
+=============================================================================
 ```
 
 
@@ -331,7 +375,7 @@ Com rigor ético e transparência de engenharia, destacam-se os pontos de fronte
 
 ## 14.1 Acesso Online Imediato (Sem Instalação)
 A plataforma está hospedada e operacional publicamente no Streamlit Community Cloud:  
-Link de Acesso: **[https://meteorisco-fypi76f3ra7umxw8v9hbgt.streamlit.app](https://meteorisco-fypi76f3ra7umxw8v9hbgt.streamlit.app)**
+Link de Acesso: **\url{https://meteorisco-fypi76f3ra7umxw8v9hbgt.streamlit.app}**
 
 ## 14.2 Execução Local no Ambiente de Desenvolvimento
 Para executar a solução localmente a partir do código-fonte:
@@ -362,62 +406,58 @@ O painel estará acessível no navegador pelo endereço `http://localhost:8501`.
 
 # 15. ESTRUTURA DO PROJETO
 
-```
+```text
 meteorisco/
 ├── app/
-│   ├── regioes_ibge.geojson      # Malha territorial oficial das 5 macrorregiões (IBGE)
-│   └── streamlit_app.py          # Dashboard executivo com neurodesign e mapa interativo
+│   ├── regioes_ibge.geojson      # Malha territorial oficial IBGE
+│   └── streamlit_app.py          # Dashboard executivo Streamlit
 ├── docs/
-│   ├── abnt_header.tex           # Configurações tipográficas e normativas ABNT
-│   ├── diagramas/                # Diagramas visuais modernos em alta resolução (300 DPI)
-│   │   ├── diagrama_agentes.png
-│   │   ├── diagrama_arquitetura.png
-│   │   ├── diagrama_fluxo.png
-│   │   └── diagrama_paradigma.png
-│   ├── relatorio_tecnico_meteorisco.md # Relatório técnico espelhado
-│   └── Relatorio_Tecnico_Final_desafio_5.pdf # Relatório oficial em PDF
+│   ├── abnt_header.tex           # Configurações tipográficas ABNT
+│   ├── diagramas/                # Diagramas visuais em 300 DPI
+│   ├── relatorio_tecnico_meteorisco.md
+│   └── Relatorio_Tecnico_Final_desafio_5.pdf
 ├── domain/
-│   ├── locations.yaml            # Metadados geográficos e climáticos das 5 capitais-piloto
-│   ├── playbook.yaml             # Diretrizes de tom de voz, canais e regras proibitivas
-│   ├── portfolio.csv             # Base de segurados sintética com atributos de risco
-│   └── risk_matrix.yaml          # Matriz de underwriting e thresholds determinísticos
+│   ├── locations.yaml            # Metadados das 5 capitais-piloto
+│   ├── playbook.yaml             # Diretrizes de tom e canais
+│   ├── portfolio.csv             # Base de segurados sintética
+│   └── risk_matrix.yaml          # Matriz de underwriting
 ├── evals/
-│   ├── eval_runner.py            # Motor de execução dos 13 Golden Evals
-│   └── golden_cases.yaml         # Definição declarativa dos cenários de teste
+│   ├── eval_runner.py            # Motor dos 13 Golden Evals
+│   └── golden_cases.yaml         # Cenários de teste de negócio
 ├── fixtures/
-│   ├── open_meteo_*.json         # Telemetria meteorológica offline para resiliência
-│   └── open_meteo_extreme_*.json # Cenários meteorológicos severos para homologação
-├── imagens_capturadas/           # Registro visual da aplicação em funcionamento
+│   └── open_meteo_*.json         # Telemetria offline de satélite
+├── imagens_capturadas/           # Telas homologadas da plataforma
 ├── scripts/
-│   └── generate_report_diagrams.py # Gerador automatizado de diagramas em alta resolução
+│   └── generate_report_diagrams.py # Gerador de diagramas
 ├── src/
-│   ├── agents/                   # Implementação dos 6 agentes especializados
-│   │   ├── analyst.py            # Analista MeteoRisco (Underwriting)
-│   │   ├── auditor.py            # Auditor de Decisão (Compliance)
-│   │   ├── exposure_manager.py   # Gestor de Exposição (Silêncio Inteligente)
-│   │   ├── notification_simulator.py # Despachante transacional com SHA-256
-│   │   ├── scout.py              # Scout Climático (Open-Meteo)
-│   │   └── writer.py             # Redator Preventivo (Playbook e LLM)
-│   ├── config/
-│   │   └── settings.py           # Gestão de variáveis de ambiente com Pydantic
-│   ├── contracts/                # Schemas Pydantic v2 (CycleResult, WeatherSignal, etc.)
-│   ├── harness/
-│   │   └── runner.py             # Orquestrador do ciclo e controle de observabilidade
-│   └── skills/                   # Funções de I/O, normalização e auditoria
-├── tests/                        # 13 Testes unitários automatizados com Pytest
-├── streamlit_app.py              # Entrypoint raiz para deploy no Streamlit Cloud
-├── requirements.txt              # Declaração determinística de dependências Python
-├── Relatorio_Tecnico_Final_desafio_5.md # Relatório Técnico Oficial do Projeto
-├── Relatorio_Tecnico_Final_desafio_5.pdf # Relatório Oficial ABNT em PDF
-└── README.md                     # Documentação executiva do repositório
+│   ├── agents/                   # Os 6 agentes especializados
+│   │   ├── analyst.py            # Analista MeteoRisco
+│   │   ├── auditor.py            # Auditor de Decisão
+│   │   ├── exposure_manager.py   # Gestor de Exposição
+│   │   ├── notification_simulator.py # Despachante com SHA-256
+│   │   ├── scout.py              # Scout Climático
+│   │   └── writer.py             # Redator Preventivo
+│   ├── config/settings.py        # Configurações com Pydantic
+│   ├── contracts/                # Schemas e contratos Pydantic
+│   ├── harness/runner.py         # Orquestrador do ciclo
+│   └── skills/                   # I/O, matriz de risco e regras
+├── tests/                        # 13 Testes unitários com Pytest
+├── streamlit_app.py              # Entrypoint raiz para cloud
+├── requirements.txt              # Dependências determinísticas
+├── meteorisco_desafio5_codigo_fonte.zip
+└── README.md                     # Documentação executiva
 ```
 
 
+\enlargethispage{4\baselineskip}
 # 16. CONCLUSÃO
 
 O MeteoRisco cumpre integralmente os objetivos propostos pelo Desafio 05 do I2A2. A solução demonstra que a Inteligência Artificial aplicada ao setor segurador atinge sua máxima eficácia quando estruturada em arquitetura simbiótica: regras estritamente determinísticas onde a precisão financeira e a conformidade atuarial são inegociáveis, combinadas com agentes de linguagem onde a empatia, a agilidade e a clareza salvam vidas e patrimônios.
 
 Ao aliar robustez de engenharia, prevenção ativa de sinistros, governança com controle humano e uma interface desenhada sob os princípios do neurodesign, a equipe Seguros Connect entrega um produto maduro, validado por 100% de aprovação em testes automatizados e preparado para liderar a transformação digital das seguradoras brasileiras.
 
-*Relatório técnico final elaborado pela equipe Seguros Connect para avaliação oficial da banca do I2A2.*  
-*São Paulo, Setembro de 2026.*
+```{=latex}
+\vspace{0.3cm}
+\noindent\textit{Relatório técnico final elaborado pela equipe Seguros Connect para avaliação oficial da banca do I2A2.}\\
+\textit{São Paulo, Setembro de 2026.}
+```

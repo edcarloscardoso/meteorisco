@@ -1,4 +1,4 @@
-% Preâmbulo e Configurações ABNT (NBR 14724 / NBR 10719 / NBR 6024)
+% Preâmbulo e Configurações ABNT Estritas (NBR 14724 / NBR 10719 / NBR 6024)
 \usepackage[brazil]{babel}
 \usepackage{setspace}
 \onehalfspacing
@@ -8,7 +8,7 @@
 \setlength{\parindent}{1.25cm}
 \setlength{\parskip}{0pt}
 
-% Margens ABNT: Superior e Esquerda 3 cm; Inferior e Direita 2 cm
+% Margens Oficiais ABNT: Superior 3 cm, Esquerda 3 cm, Inferior 2 cm, Direita 2 cm
 \usepackage{geometry}
 \geometry{
   a4paper,
@@ -18,16 +18,26 @@
   right=2.0cm
 }
 
-% Fontes limpas e elegantes (Liberation Serif / Times New Roman)
+% Fontes Clássicas Acadêmicas (Liberation Serif / Times New Roman)
 \usepackage{fontspec}
 \setmainfont{Liberation Serif}[
   BoldFont=Liberation Serif Bold,
   ItalicFont=Liberation Serif Italic,
   BoldItalicFont=Liberation Serif Bold Italic
 ]
-\setmonofont{Liberation Mono}[Scale=0.85]
+\setmonofont{Liberation Mono}[Scale=0.82]
 
-% Paginação ABNT no canto superior direito
+% DESATIVAÇÃO COMPLETA DE HIFENIZAÇÃO (Sem separação silábica nos finais de linha)
+% Justificação pura de texto com expansão equilibrada entre palavras
+\usepackage[none]{hyphenat}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\binoppenalty=10000
+\relpenalty=10000
+\sloppy
+\emergencystretch=3.5em
+
+% Paginação ABNT: Canto superior direito, fonte pequena
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
@@ -36,7 +46,9 @@
 \renewcommand{\footrulewidth}{0pt}
 \setlength{\headheight}{15pt}
 
-% Configuração de Figuras e Imagens (Evita quebras de diagramas)
+% Configuração de Figuras e Imagens (Impedir quebras de diagramas e overflow)
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,keepaspectratio}
 \usepackage{float}
 \floatplacement{figure}{H}
 \usepackage{caption}
@@ -66,17 +78,30 @@
 \titlespacing*{\subsection}{0pt}{14pt}{6pt}
 \titlespacing*{\subsubsection}{0pt}{12pt}{4pt}
 
-% Prevenção de quebras feias de parágrafos e linhas
+% Prevenção de quebras órfãs e viúvas
 \clubpenalty=10000
 \widowpenalty=10000
 \displaywidowpenalty=10000
 
-% Tabelas ABNT (Espaçamento e dimensionamento de colunas)
+% Tabelas ABNT (Espaçamento controlado para JAMAIS ultrapassar margem direita)
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{array}
-\setlength{\tabcolsep}{6pt}
+\setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.2}
+
+% Bloco de código com quebra automática de linha para não estourar a margem direita
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,fontsize=\scriptsize}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,fontsize=\scriptsize,commandchars=\\\{\}}
+
+% Permitir quebra suave em nomes de arquivos com sublinhado
+\renewcommand{\_}{\textunderscore\allowbreak}
 
 % Suprimir réguas horizontais do markdown (---)
 \renewcommand{\rule}[2]{}
+
+% Pacotes auxiliares
+\usepackage{url}
+\urlstyle{same}
+
