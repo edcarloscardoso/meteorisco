@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 def run_cycle(
     location_id: str,
     force_fixture: bool = False,
+    force_extreme: bool = False,
     operator_rejections: Optional[list[str]] = None,
     approved_by: str = "operador",
 ) -> CycleResult:
@@ -71,11 +72,15 @@ def run_cycle(
     message_drafts = []
     audit_results = []
     notification_logs = []
-    used_fixture = force_fixture
+    used_fixture = force_fixture or force_extreme
 
     # --- 1. Scout Climático ---
     try:
-        weather_signal, scout_trace = scout.run(location_id, force_fixture=force_fixture)
+        weather_signal, scout_trace = scout.run(
+            location_id,
+            force_fixture=force_fixture,
+            force_extreme=force_extreme,
+        )
         trace.append(scout_trace)
         if weather_signal.is_fixture:
             used_fixture = True

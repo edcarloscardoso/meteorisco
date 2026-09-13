@@ -49,6 +49,14 @@ FIXTURE_MAP = {
     "porto_alegre": "open_meteo_porto_alegre.json",
 }
 
+EXTREME_FIXTURE_MAP = {
+    "belem": "extreme_meteo_belem.json",
+    "recife": "extreme_meteo_recife.json",
+    "brasilia": "extreme_meteo_brasilia.json",
+    "sao_paulo": "extreme_meteo_sao_paulo.json",
+    "porto_alegre": "extreme_meteo_porto_alegre.json",
+}
+
 
 def fetch_weather(
     location_id: str,
@@ -57,6 +65,7 @@ def fetch_weather(
     timezone_str: str,
     forecast_hours: Optional[int] = None,
     force_fixture: bool = False,
+    force_extreme: bool = False,
 ) -> dict:
     """
     Obtém previsão meteorológica para a localidade informada.
@@ -67,17 +76,20 @@ def fetch_weather(
         longitude: Longitude da coordenada de referência.
         timezone_str: Timezone IANA (ex: 'America/Sao_Paulo').
         forecast_hours: Horas de previsão (padrão: settings.forecast_hours).
-        force_fixture: Se True, usa fixture independente de settings.weather_mode.
+        force_fixture: Se True, usa fixture offline (open_meteo_*.json).
+        force_extreme: Se True, usa fixture extrema offline (extreme_meteo_*.json).
 
     Returns:
         Dict com o payload bruto da Open-Meteo (ou fixture equivalente).
         Inclui campo '_is_fixture' indicando a fonte.
     """
     hours = forecast_hours or settings.forecast_hours
-    use_fixture = force_fixture or settings.weather_mode == "fixture"
+    use_fixture = force_fixture or force_extreme or settings.weather_mode == "fixture"
 
     if use_fixture:
-        logger.info(f"[fetch_weather] Modo FIXTURE para {location_id}")
+        logger.info(f"[fetch_weather] Modo FIXTURE (extreme={force_extreme}) para {location_id}")
+        if force_extreme:
+            return _load_fixture(location_id, extreme=True)
         return _load_fixture(location_id)
 
     try:
@@ -120,16 +132,17 @@ def _call_open_meteo(
         return response.json()
 
 
-def _load_fixture(location_id: str, fallback: bool = False) -> dict:
+def _load_fixture(location_id: str, fallback: bool = False, extreme: bool = False) -> dict:
     """
     Carrega fixture estática para uma localidade.
     Raises FileNotFoundError se a fixture não existir.
     """
-    fixture_filename = FIXTURE_MAP.get(location_id)
+    fixture_map = EXTREME_FIXTURE_MAP if extreme else FIXTURE_MAP
+    fixture_filename = fixture_map.get(location_id)
     if not fixture_filename:
         raise ValueError(
             f"Nenhuma fixture definida para '{location_id}'. "
-            f"Fixtures disponíveis: {list(FIXTURE_MAP.keys())}"
+            f"Fixtures disponíveis: {list(fixture_map.keys())}"
         )
 
     fixture_path = settings.fixtures_dir / fixture_filename

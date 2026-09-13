@@ -9,7 +9,12 @@ import os
 import json
 import html
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+# Determina a raiz do projeto de forma resiliente
+_current_dir = Path(__file__).resolve().parent
+_root_dir = _current_dir if (_current_dir / "src").exists() else _current_dir.parent
+if str(_root_dir) not in sys.path:
+    sys.path.insert(0, str(_root_dir))
 
 import streamlit as st
 import pandas as pd
@@ -520,18 +525,27 @@ with st.sidebar:
 # ─── FUNÇÃO DO MAPA DO BRASIL (IBGE + PLOTLY) ───────────────────────────────
 @st.cache_data(ttl=86400)
 def load_ibge_regions():
-    local_expanded = "fixtures/ibge_regioes_brasil_expanded.geojson"
-    if os.path.exists(local_expanded):
-        try:
-            with open(local_expanded, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            pass
-    local_path = "fixtures/ibge_regioes_brasil.geojson"
-    if os.path.exists(local_path):
-        try:
-            with open(local_path, "r", encoding="utf-8") as f:
-                data = json.load(f)
+    candidates = [
+        _root_dir / "fixtures" / "ibge_regioes_brasil_expanded.geojson",
+        Path("fixtures/ibge_regioes_brasil_expanded.geojson"),
+    ]
+    for p in candidates:
+        if p.exists():
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception:
+                pass
+
+    fallback_candidates = [
+        _root_dir / "fixtures" / "ibge_regioes_brasil.geojson",
+        Path("fixtures/ibge_regioes_brasil.geojson"),
+    ]
+    for p in fallback_candidates:
+        if p.exists():
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    data = json.load(f)
                 new_features = []
                 for feat in data.get("features", []):
                     geom = feat.get("geometry", {})

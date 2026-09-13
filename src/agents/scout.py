@@ -34,13 +34,15 @@ class ScoutClimatico:
         self,
         location_id: str,
         force_fixture: bool = False,
+        force_extreme: bool = False,
     ) -> tuple[WeatherSignal, AgentTrace]:
         """
         Executa o Scout para a localidade informada.
 
         Args:
             location_id: ID da localidade-piloto (ex: 'sao_paulo').
-            force_fixture: Força uso de fixture offline.
+            force_fixture: Força uso de fixture offline regular.
+            force_extreme: Força uso de fixture extrema offline.
 
         Returns:
             (WeatherSignal, AgentTrace) — sinal normalizado + trace de execução.
@@ -59,6 +61,7 @@ class ScoutClimatico:
                 longitude=location["longitude"],
                 timezone_str=location["timezone"],
                 force_fixture=force_fixture,
+                force_extreme=force_extreme,
             )
 
             is_fallback = raw.get("_is_fixture", False)
