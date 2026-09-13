@@ -1,0 +1,82 @@
+% Preâmbulo e Configurações ABNT (NBR 14724 / NBR 10719 / NBR 6024)
+\usepackage[brazil]{babel}
+\usepackage{setspace}
+\onehalfspacing
+
+% Recuo padrão ABNT na primeira linha do parágrafo
+\usepackage{indentfirst}
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
+
+% Margens ABNT: Superior e Esquerda 3 cm; Inferior e Direita 2 cm
+\usepackage{geometry}
+\geometry{
+  a4paper,
+  top=3.0cm,
+  left=3.0cm,
+  bottom=2.0cm,
+  right=2.0cm
+}
+
+% Fontes limpas e elegantes (Liberation Serif / Times New Roman)
+\usepackage{fontspec}
+\setmainfont{Liberation Serif}[
+  BoldFont=Liberation Serif Bold,
+  ItalicFont=Liberation Serif Italic,
+  BoldItalicFont=Liberation Serif Bold Italic
+]
+\setmonofont{Liberation Mono}[Scale=0.85]
+
+% Paginação ABNT no canto superior direito
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{15pt}
+
+% Configuração de Figuras e Imagens (Evita quebras de diagramas)
+\usepackage{float}
+\floatplacement{figure}{H}
+\usepackage{caption}
+\captionsetup[figure]{
+  name=Figura,
+  labelsep=endash,
+  font=small,
+  labelfont=bf,
+  justification=centering,
+  skip=6pt
+}
+\captionsetup[table]{
+  name=Tabela,
+  labelsep=endash,
+  font=small,
+  labelfont=bf,
+  justification=centering,
+  skip=6pt
+}
+
+% Formatação dos Títulos (NBR 6024)
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\normalsize\bfseries\uppercase}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries\itshape}{\thesubsubsection}{1em}{}
+\titlespacing*{\section}{0pt}{18pt}{8pt}
+\titlespacing*{\subsection}{0pt}{14pt}{6pt}
+\titlespacing*{\subsubsection}{0pt}{12pt}{4pt}
+
+% Prevenção de quebras feias de parágrafos e linhas
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+% Tabelas ABNT (Espaçamento e dimensionamento de colunas)
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.2}
+
+% Suprimir réguas horizontais do markdown (---)
+\renewcommand{\rule}[2]{}
